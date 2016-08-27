@@ -7,7 +7,36 @@
 			width: 60px;	
 		}
 	</style>
+
 {% endblock head %}
+
+{% block meta %}
+
+  <meta itemprop="image" content="{{pokemon.pokemon_image}}">
+
+  <meta property="og:title" content="{{pokemon.pokemon_name}} Pokemon"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:image" content="{{pokemon.pokemon_image}}"/> 
+  <meta property="og:site_name" content="https://pacific-castle-45515.herokuapp.com/"/> 
+
+  <meta property="og:url" content="https://pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}" />
+  <meta property="article:author" content="http://facebook.com/rajat.singhal.9085" />
+  <meta property="article:publisher" content="https://www.facebook.com/rajat.singhal.9085"/>
+<!-- 
+  <meta property='og:video' content='http://www.youtube.com/v/0Jgt3v7sQOM?version=3'/>
+  <meta property='og:video:height' content='360'/>
+  <meta property='og:video:type' content='application/x-shockwave-flash'/>
+  <meta property='og:video:width' content='640'/>
+  <meta property='og:type' content='video'/>
+
+ --> 
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@newsmemedotin" />
+  <meta name="twitter:title" content="{{pokemon.pokemon_name}} Pokemon" />
+  <!-- <meta name="twitter:description" content="" /> -->
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="{{pokemon.pokemon_image}}" />
+{% endblock meta %}
 
 
 {% block content %}
