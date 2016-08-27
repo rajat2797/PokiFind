@@ -1,0 +1,106 @@
+{% extends "search/base.html" %}
+
+{% block head %}
+	<title> {{date}} </title>
+	<style type="text/css">
+		img{
+			width: 60px;	
+		}
+	</style>
+{% endblock head %}
+
+
+{% block content %}
+<!-- <nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li>
+      <a href="/?page={{prev}}" aria-label="Previous">
+        <span aria-hidden="true">Prev &laquo;</span>
+      </a>
+    </li>
+    {% for i in range %}
+	    <li><a href="/?page={{i}}">{{i}}</a></li>
+	{% endfor %}
+    <li>
+      <a href="/?page={{next}}" aria-label="Next">
+        <span aria-hidden="true">Next &raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav> -->
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li>
+      <a href="/p/{{prev}}" aria-label="Previous">
+        <span aria-hidden="true">Prev &laquo;</span>
+      </a>
+    </li>
+    {% for i in range %}
+	    <li><a href="/p/{{i}}">{{i}}</a></li>
+	{% endfor %}
+    <li>
+      <a href="/p/{{next}}" aria-label="Next">
+        <span aria-hidden="true">Next &raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<br>	
+<h1>Page #{{page}}</h1>
+{% for pokemon in pokedex %}
+	<p>{{pokemon.pokemon_name}} : 
+		type {{pokemon.pokemon_type}}</p>
+		
+	<a href='/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}'><img src='{{pokemon.pokemon_image}}'></a>
+	<hr>
+{% endfor %}
+
+
+
+	<!-- <div class='row'>
+
+		<div class="col-md-4">
+			<img src='static/images/{{list_dir.0}}'>
+		</div>
+		<div class="col-md-4">
+			<img src='static/images/{{list_dir.2}}'>
+		</div>
+		<div class="col-md-4">
+			<img src='static/images/{{list_dir.3}}'>
+		</div>
+
+	</div><br>
+
+	<div class='row'>
+		
+		<div class="col-md-4">
+			<img src='static/images/{{list_dir.4}}'>
+		</div>
+		<div class="col-md-4">
+			<img src='static/images/{{list_dir.5}}'>
+		</div>
+		<div class="col-md-4">
+			<img src='static/images/{{list_dir.6}}'>
+		</div>
+
+	</div><br>
+
+	<div class='row'>
+		
+		<div class="col-md-4">
+			<img src='static/images/{{list_dir.7}}'>
+		</div>
+		<div class="col-md-4">
+			<img src='static/images/{{list_dir.8}}'>
+		</div>
+		<div class="col-md-4">
+			<img src='static/images/{{list_dir.9}}'>
+		</div>
+
+	</div> -->
+
+
+
+{% endblock content %}
+

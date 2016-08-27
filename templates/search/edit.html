@@ -1,0 +1,50 @@
+{% extends "search/base.html" %}
+
+{% block head %}
+<style type="text/css">
+body{
+	background: url('{{pokemon_image}}');
+}
+</style>
+{% endblock head %}
+
+{% block content %}
+
+<p>Edit View for {{matching_pokemon.pokemon_name}}</p>
+
+<img src='{{matching_pokemon.pokemon_image}}'>
+
+<form method='POST' action='/edit/{{matching_pokemon.id}}'>
+
+	{% csrf_token %}
+
+	<div class='form-group'>
+
+		<input type='text' 
+			name='name' 
+			class='form-control'
+			value='{{matching_pokemon.pokemon_name}}'>
+
+		<input type='text' 
+			name='type' 
+			class='form-control'
+			value='{{matching_pokemon.pokemon_type}}'>
+
+		<input type='text' 
+			name='image' 
+			class='form-control'
+			value='{{matching_pokemon.pokemon_image}}'>
+	
+	</div>
+	<button type='submit' class='btn btn-success'>Submit</button>
+	
+	<div class="g-ytsubscribe" data-channel="GoogleDevelopers" style="height:50px;width:100px;"><button></button></div>
+	<div class="g-ytsubscribe" data-channel="GoogleDevelopers" data-layout="default" data-count="default">BUTTON</div>
+	<!-- <button type="reset">RESET</button> -->
+</form>
+
+
+{% endblock content %}
+{% block script %}
+<script src="https://apis.google.com/js/platform.js"></script>
+{% endblock script %}
