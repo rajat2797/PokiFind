@@ -76,7 +76,7 @@
           </a>
         </li>
         <li>
-          <a href="whatsapp://send?text=Hi There http%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
+          <a id='whatsapp' href="whatsapp://send?text=Hi There http%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
             <button class="btn btn-primary">Share on WhatsApp</button>
           </a>
         </li>
@@ -84,5 +84,18 @@
     
   </div>
 </div>
+
 {% endblock content %}
+
+{% block scripts %}
+  <script type="text/javascript">
+      $( document ).ready(function() {
+      //alert(navigator.userAgent);
+      //document.getElementById('whatsapp').style.display='none';
+      if(navigator.userAgent.match('Android')==null)
+        $('#whatsapp').hide();
+
+});
+  </script>
+{% endblock scripts %}
 
