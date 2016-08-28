@@ -6,6 +6,9 @@
 		img{
 			width: 140px;	
 		}
+    li{
+      display: inline-block;
+    }
 	</style>
 
 {% endblock head %}
@@ -45,9 +48,39 @@
     <img src="{{pokemon.pokemon_image}}">
   </div>
   <div class='col-md-6'>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//pacific-castle-45515.herokuapp.com/{{pokemon.id}}/{{pokemon.pokemon_name}}">
-        <button class="btn btn-success"> Share on Facebook </button>
-      </a>
+      <ul>
+        <li>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
+            <button class="btn btn-success"> Share on Facebook </button>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/home?status=https%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}"> 
+            <button class="btn btn-success"> Share on Twitter </button> 
+          </a>
+        </li>
+        <li>
+          <i class="fa fa-google-plus-official" aria-hidden="false"></i>
+          <a href="https://plus.google.com/share?url=https%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
+            <button class="btn btn-success"> Share on Google+ </button> 
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}&title=Pokedex&summary=&source=">
+            <button class="btn btn-success"> Share on LinkedIn </button>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:rajatsinghal1997@gmail.com?&subject=Bug Report&body=Hello,%0Ahttp%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
+            <button class="btn btn-primary"> Send BUG REPORT </button>
+          </a>
+        </li>
+        <li>
+          <a href="whatsapp://send?text=Hi There http%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
+            <button class="btn btn-primary">Share on WhatsApp</button>
+          </a>
+        </li>
+      </ul>
     
   </div>
 </div>
