@@ -1,4 +1,3 @@
-
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','pokemonGo.settings')
 
@@ -13,8 +12,6 @@ def populate():
 		add(pokemon_name=pokemon['name'],
 			pokemon_image=pokemon['image_url'])
 		
-
-
 def showDB():
 	for pokemon in Pokedex.objects.all():
 		print pokemon

@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^pokemon/(?P<pokemon_id>\d+)/(?P<pokemon_name>[\w\-]+)', 'search.views.desc', name = 'desc'),
     url(r'^pokemon/(?P<pokemon_id>\d+)/', 'search.views.short_url', name = 'desc'),
     url(r'^p/(?P<page_id>\d+)', 'search.views.index2', name = 'pages'),
+    url(r'^oddish/$', 'search.views.oddish', name='oddish'),
     #un-named grouping
     #url(r'^search/(\d+)', 'search.views.srch2', name = 'search2'),
     #named-grouping
