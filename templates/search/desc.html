@@ -4,7 +4,7 @@
 	<title> {{date}} </title>
 	<style type="text/css">
 		img{
-			width: 60px;	
+			width: 140px;	
 		}
 	</style>
 
@@ -37,7 +37,19 @@
 
 
 {% block content %}
+
 <h1>YOU SEARCHED FOR {{pokemon.id}} {{pokemon.pokemon_name}}</h1>
-<img src="{{pokemon.pokemon_image}}">
+<div class="row">
+
+  <div class='col-md-6'>
+    <img src="{{pokemon.pokemon_image}}">
+  </div>
+  <div class='col-md-6'>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//pacific-castle-45515.herokuapp.com/{{pokemon.id}}/{{pokemon.pokemon_name}}">
+        <button class="btn btn-success"> Share on Facebook </button>
+      </a>
+    
+  </div>
+</div>
 {% endblock content %}
 
