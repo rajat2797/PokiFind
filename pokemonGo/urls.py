@@ -18,6 +18,11 @@ urlpatterns = patterns('',
     url(r'^pokemon/(?P<pokemon_id>\d+)/', 'search.views.short_url', name = 'desc'),
     url(r'^p/(?P<page_id>\d+)', 'search.views.index2', name = 'pages'),
     url(r'^oddish/$', 'search.views.oddish', name='oddish'),
+    url(r'^game$', 'search.views.game', name = 'game'),
+    url(r'^fbshare$', 'search.views.fbshare', name = 'fbshare'),
+    url(r'^gshare$', 'search.views.gshare', name = 'gshare'),
+    url(r'^linkedin$', 'search.views.linkedin', name = 'linkedin'),
+    url(r'^tweet$', 'search.views.tweet', name = 'tweet'),
     #un-named grouping
     #url(r'^search/(\d+)', 'search.views.srch2', name = 'search2'),
     #named-grouping

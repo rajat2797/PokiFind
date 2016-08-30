@@ -3,11 +3,22 @@
 {% block head %}
 	<title> {{date}} </title>
 	<style type="text/css">
+    @import url('http://fonts.googleapis.com/css?family=Kavoon');
 		img{
-			width: 140px;	
+      max-height: 200px;
+			width: 200px;
 		}
     li{
       display: inline-block;
+    }
+    .heading{
+      text-align: center;
+      color: red;
+      font-size: 50px;
+      font-family: Kavoon;
+    }
+    #buttons{
+      text-align: center;
     }
 	</style>
 
@@ -40,9 +51,56 @@
 
 
 {% block content %}
+  <strong><h2 class="heading">
+    Who is {{correct_pokemon.pokemon_name}}?
+  </h2></strong>
+  <br><br><br>
+  <div class="row">
+    <div class="col-md-3">
+      
+        <img src={{pokemon.0.pokemon_image}} onclick='check(this,"{{pokemon.0.pokemon_name}}","{{correct_pokemon.pokemon_name}}")'>
+      
+    </div>
+    <div class="col-md-3">
+      
+        <img src={{pokemon.1.pokemon_image}} onclick='check(this,"{{pokemon.1.pokemon_name}}","{{correct_pokemon.pokemon_name}}")'>
+      
+    </div>
+    <div class="col-md-3">
+      
+        <img src={{pokemon.2.pokemon_image}} onclick='check(this,"{{pokemon.2.pokemon_name}}","{{correct_pokemon.pokemon_name}}")'>
+      
+    </div>
+    <div class="col-md-3">
+      
+        <img src={{pokemon.3.pokemon_image}} onclick='check(this,"{{pokemon.3.pokemon_name}}","{{correct_pokemon.pokemon_name}}")'>
+      
+    </div>
+  </div>
 
-<h1>YOU SEARCHED FOR {{pokemon.id}} {{pokemon.pokemon_name}}</h1>
-<div class="row">
+  <br><br><br><br>
+
+  <button type="button" class="btn btn-success" onclick="show()">SHOW ANSWER</button>
+  <br><br>
+  <img src="{{correct_pokemon.pokemon_image}}" id="answer" style="display:none;">
+
+  <!-- buttons -->
+  <!-- <div class="row">
+    <div class="col-md-3" id="buttons">
+      <button type="button" class="btn btn-warning" onclick="check(this)">OPTION A</button>
+    </div>
+    <div class="col-md-3" id="buttons">
+     <button type="button" class="btn btn-warning">OPTION B</button>
+    </div>
+    <div class="col-md-3" id="buttons">
+      <button type="button" class="btn btn-warning">OPTION C</button>
+    </div>
+    <div class="col-md-3" id="buttons">
+      <button type="button" class="btn btn-warning">OPTION D</button>
+    </div>
+  </div> -->
+
+<!-- <div class="row">
 
   <div class='col-md-6'>
     <img src="{{pokemon.pokemon_image}}">
@@ -84,18 +142,43 @@
     
   </div>
 </div>
-
-{% endblock content %}
+ -->
+{% endblock %}
 
 {% block scripts %}
-  <script type="text/javascript">
-      $( document ).ready(function() {
-      //alert(navigator.userAgent);
-      //document.getElementById('whatsapp').style.display='none';
-      if(navigator.userAgent.match('Android')==null)
-        $('#whatsapp').hide();
+<script type="text/javascript">
+  
+    function show () {
+       document.getElementById("answer").style.display="block";
+    }
 
-});
-  </script>
+  function check(e,option,correct_pokemon) {
+    console.log(option,correct_pokemon)
+    if(option==correct_pokemon)
+    {
+      alert("CORRECT ANSWER  !");
+      setTimeout(function(){
+        location.reload()
+      }, 500) ;
+    }
+    else
+    {
+      alert("clicked");
+      $(e).hide();
+    }
+  }
+
+  /*$("img").on("click", function check (option,correct_pokemon) {
+    console.log(option,correct_pokemon)
+    if(option==correct_pokemon)
+    { console.log("matched");
+      alert("CORRECT ANSWER  !");
+    }
+    else
+    {
+      alert("-X- WRONG ANSWER -X-");
+    }*/
+/*});*/
+
+</script>
 {% endblock scripts %}
-
