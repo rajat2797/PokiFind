@@ -4,6 +4,7 @@
 	<title> {{date}} </title>
 	<style type="text/css">
     @import url('http://fonts.googleapis.com/css?family=Kavoon');
+    @import url('http://fonts.googleapis.com/css?family=Fascinate Inline');
 		img{
       max-height: 200px;
 			width: 200px;
@@ -17,12 +18,60 @@
       font-size: 50px;
       font-family: Kavoon;
     }
+    .score{
+      color: yellow;
+      font-family: Fascinate Inline; 
+      display: inline-block;
+    }
+    .attempts{
+      color: yellow;
+      float: right;
+      font-family: Fascinate Inline;
+      display: inline-block;
+    }
     #buttons{
       text-align: center;
+    }
+    .result{
+      width: 190px;
+    }
+    #wa{
+      padding: 12px;
+      float: right;
+      display: inline-block;
+      border: dashed;
+      height: 60px;
+      width: 170px;
+      text-align: center;
+      margin-top: -63px; 
+      margin-right: 125px;
+      color: white;
+      background: #aa0000;
+      visibility: hidden;
+    }
+    #ca{
+      padding: 5px;
+      float: right;
+      display: inline-block;
+      border: dashed;
+      height: 50px;
+      width: 170px;
+      text-align: center;
+      margin-top: -63px; 
+      margin-right: 125px;
+      color: white;
+      background: #00aa00;
+      vertical-align: middle;
+      visibility: hidden;
     }
 	</style>
 
 {% endblock head %}
+
+{% block navbar %}
+<!-- <h1 class="score">SCORE : {{score}}</h1>
+<h1 class="attempts">ATTEMPTS : {{attempts}}</h1> -->
+{% endblock navbar %}
 
 {% block meta %}
 
@@ -81,8 +130,16 @@
   <br><br><br><br>
 
   <button type="button" class="btn btn-success" onclick="show()">SHOW ANSWER</button>
+  <button type="button" class="btn btn-warning" id="reload" onclick="location.reload()" style="visibility:hidden;">NEXT QUESTION</button>
   <br><br>
   <img src="{{correct_pokemon.pokemon_image}}" id="answer" style="display:none;">
+  <div class="result" id="wa">
+    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> WRONG ANSWER 
+  </div>
+  <div class="result" id="ca">
+    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> CORRECT ANSWER 
+  </div>
+
 
   <!-- buttons -->
   <!-- <div class="row">
@@ -150,21 +207,28 @@
   
     function show () {
        document.getElementById("answer").style.display="block";
+       /*setTimeout(function(){
+        location.reload()
+      }, 3000) ;*/
+      document.getElementById("reload").style.visibility="visible";
     }
 
   function check(e,option,correct_pokemon) {
     console.log(option,correct_pokemon)
     if(option==correct_pokemon)
     {
-      alert("CORRECT ANSWER  !");
-      setTimeout(function(){
-        location.reload()
-      }, 500) ;
+      document.getElementById("ca").style.visibility="visible";
+      document.getElementById("reload").style.visibility="visible";
+
     }
     else
     {
-      alert("clicked");
-      $(e).hide();
+      document.getElementById("wa").style.visibility="visible";
+      setTimeout(function() {
+        $(e).hide(); 
+         document.getElementById("wa").style.visibility="hidden";
+      }, 1000);
+      
     }
   }
 

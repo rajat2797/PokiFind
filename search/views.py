@@ -192,6 +192,7 @@ def index(request):
 	data_arr=Pokedex.objects.all()
 	context_dict = {}
 	context_dict['date'] = today_date
+	game_image='http://images.hellokids.com/_uploads/_tiny_galerie/20090625/pikachu-source_ion.gif'
 	# try:
 	# 	page_id=int(page_id)
 	# except AssertionError:
@@ -204,6 +205,7 @@ def index(request):
 	context_dict['page'] = page_id
 	context_dict['prev'] = page_id-1
 	context_dict['next'] = page_id+1
+	context_dict['game_image']=game_image
 	context_dict['pokedex'] = data_arr[(page_id-1)*n:(page_id)*n]
 	
 	return render(request,'search/index.html',context_dict)
@@ -272,6 +274,8 @@ def game(request):
 			random_pokemon[i]=[pokemon_arr[randint(0,len(pokemon_arr)-1)]]
 	shuffle(random_pokemon)
 	# print random_pokemon
+	score=0
+	attempts=1
 	context_dict={}
 	for i in range(4):
 		a='poke'+str(i)
@@ -279,5 +283,7 @@ def game(request):
 		
 	context_dict['pokemon']=[i for i in random_pokemon]
 	context_dict['correct_pokemon']=correct_pokemon
+	context_dict['score']=score
+	context_dict['attempts']=attempts
 	# print context_dict['pokemon']
 	return render(request,'search/game.html',context_dict)

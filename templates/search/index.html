@@ -6,9 +6,21 @@
 		img{
 			width: 60px;	
 		}
+		.game{
+			float: left;
+			height: 125px;
+			width: 80px;
+		}
+		.typed{
+			height: 50px;
+			width: 400px;
+		}
 	</style>
 {% endblock head %}
 
+{% block navbar %}
+<a href="/game" data-toggle="tooltip" data-placement="bottom" title="PLAY GAME"><img src="{{game_image}}" class="game"><h1 class='typing'></h1></a>
+{% endblock %}
 
 {% block content %}
 <!-- <nav aria-label="Page navigation">
@@ -103,4 +115,24 @@
 
 
 {% endblock content %}
+
+{% block scripts %}
+
+<script src="jquery.js"></script>
+<script src="static/typed.js-master/js/typed.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+$(function(){
+	      $(".typing").typed({
+	        strings: ["PLAY POKEMON GAME"],
+	        typeSpeed: 90
+	      });
+	  });
+
+</script>
+
+{% endblock scripts %}
 
