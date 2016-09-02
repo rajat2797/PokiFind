@@ -9,9 +9,18 @@
       max-height: 200px;
 			width: 200px;
 		}
+    .btn{
+      width: 170px;
+    }
     li{
       display: inline-block;
+      margin-left: 10px;
+      margin-bottom: 5px;
     }
+    /*.linkedin{
+      margin-right:-2px; 
+      margin-left: 12px;
+    }*/
     .heading{
       text-align: center;
       color: red;
@@ -69,8 +78,8 @@
 {% endblock head %}
 
 {% block navbar %}
-<!-- <h1 class="score">SCORE : {{score}}</h1>
-<h1 class="attempts">ATTEMPTS : {{attempts}}</h1> -->
+<h1 class="score">SCORE : <span id = "score">{{score}}</span></h1>
+<h1 class="attempts">ATTEMPTS : <span id = "attempts">0</span></h1>
 {% endblock navbar %}
 
 {% block meta %}
@@ -129,17 +138,16 @@
 
   <br><br><br><br>
 
-  <button type="button" class="btn btn-success" onclick="show()">SHOW ANSWER</button>
+  <button type="button" class="btn btn-success" id="hideshow" onclick="show()">SHOW ANSWER</button>
   <button type="button" class="btn btn-warning" id="reload" onclick="location.reload()" style="visibility:hidden;">NEXT QUESTION</button>
   <br><br>
-  <img src="{{correct_pokemon.pokemon_image}}" id="answer" style="display:none;">
+  <img src="{{correct_pokemon.pokemon_image}}" id="answer" class="content" style="display:none;">
   <div class="result" id="wa">
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> WRONG ANSWER 
   </div>
   <div class="result" id="ca">
     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> CORRECT ANSWER 
   </div>
-
 
   <!-- buttons -->
   <!-- <div class="row">
@@ -156,93 +164,160 @@
       <button type="button" class="btn btn-warning">OPTION D</button>
     </div>
   </div> -->
+<br><br>
+<div class="row">
 
-<!-- <div class="row">
-
-  <div class='col-md-6'>
-    <img src="{{pokemon.pokemon_image}}">
-  </div>
-  <div class='col-md-6'>
+  <div class='col-md-6 col-md-offset-6'>
       <ul>
         <li>
           <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
-            <button class="btn btn-info"> Share on Facebook </button>
+            <button class="btn btn-primary"><i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i>Share on Facebook </button>
           </a>
         </li>
         <li>
           <a href="https://twitter.com/home?status=https%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}"> 
-            <button class="btn btn-success"> Share on Twitter </button> 
+            <button class="btn btn-info"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i>Share on Twitter </button> 
           </a>
         </li>
         <li>
-          <i class="fa fa-google-plus-official" aria-hidden="false"></i>
           <a href="https://plus.google.com/share?url=https%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
-            <button class="btn btn-danger"> Share on Google+ </button> 
+            <button class="btn btn-danger"> <i class="fa fa-google-plus-official fa-lg" aria-hidden="false"></i>  Share on Google+ </button> 
           </a>
         </li>
         <li>
           <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}&title=Pokedex&summary=&source=">
-            <button class="btn btn-info"> Share on LinkedIn </button>
-          </a>
-        </li>
-        <li>
-          <a href="mailto:rajatsinghal1997@gmail.com?&subject=Bug Report&body=Hello,%0Ahttp%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
-            <button class="btn btn-danger"> Send BUG REPORT </button>
+            <button class="btn btn-info linkedin"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i>  Share on LinkedIn </button>
           </a>
         </li>
         <li>
           <a id='whatsapp' href="whatsapp://send?text=Hi There http%3A//pacific-castle-45515.herokuapp.com/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}">
-            <button class="btn btn-success">Share on WhatsApp</button>
+            <button class="btn btn-success"><i class="fa fa-whatsapp fa-lg" aria-hidden="true" style=""></i>Share on WhatsApp</button>
           </a>
         </li>
       </ul>
     
   </div>
 </div>
- -->
+
 {% endblock %}
 
 {% block scripts %}
 <script type="text/javascript">
+
+
+    /*var score = {
+      score : 0,
+      attempts : 0
+    };
+         
+    
+    if(!window.sessionStorage.getItem("score")){
+      console.log("setting storage");
+      window.sessionStorage.setItem("score",JSON.stringify(score));
+    }
+    else{
+      console.log("getting storage");
+      score = JSON.parse(window.sessionStorage.getItem("score"));
+    }*/
   
     function show () {
        document.getElementById("answer").style.display="block";
-       /*setTimeout(function(){
-        location.reload()
-      }, 3000) ;*/
-      document.getElementById("reload").style.visibility="visible";
+       document.getElementById("reload").style.visibility="visible";
     }
 
-  function check(e,option,correct_pokemon) {
-    console.log(option,correct_pokemon)
-    if(option==correct_pokemon)
-    {
-      document.getElementById("ca").style.visibility="visible";
-      document.getElementById("reload").style.visibility="visible";
-
-    }
-    else
-    {
-      document.getElementById("wa").style.visibility="visible";
-      setTimeout(function() {
-        $(e).hide(); 
-         document.getElementById("wa").style.visibility="hidden";
-      }, 1000);
-      
-    }
-  }
-
-  /*$("img").on("click", function check (option,correct_pokemon) {
-    console.log(option,correct_pokemon)
-    if(option==correct_pokemon)
-    { console.log("matched");
-      alert("CORRECT ANSWER  !");
-    }
-    else
-    {
-      alert("-X- WRONG ANSWER -X-");
+    /*function update_score () {
+       document.getElementById("score").innerHTML=score.score;
+       document.getElementById("attempts").innerHTML=score.attempts;
     }*/
-/*});*/
+    jQuery('#hideshow').on('click', function() {        
+             setTimeout(function () {
+                jQuery('.content').toggle('show');
+             }, 1500)
+             
+        });
+
+    function check(e,option,correct_pokemon) {
+      if(option==correct_pokemon)
+      {
+        document.getElementById("ca").style.visibility="visible";
+        document.getElementById("reload").style.visibility="visible";
+        var score = document.getElementById("score").innerHTML;
+        var attempts=document.getElementById("attempts").innerHTML
+        attempts=parseInt(attempts)+1
+        document.getElementById("attempts").innerHTML=attempts
+        score=parseInt(score) + 1;
+        setTimeout(function(){
+          window.location.href='/game?score=' + score;
+        }  , 2500);
+        
+        $.post('/game',{'user_score': score,'csrfmiddlewaretoken': "{{csrf_token}}"}, function (result) {
+           console.log(result);
+        });
+
+        /*score.score + =1;
+        score.attempts +=1;
+        window.sessionStorage.setItem("score",JSON.stringify(score));
+        update_score();*/ 
+      }
+      else
+      {
+       /* score.attempts +=1;
+        window.sessionStorage.setItem("score",JSON.stringify(score));
+        update_score();*/
+        document.getElementById("wa").style.visibility="visible";
+        setTimeout(function() {
+          $(e).hide(); 
+           document.getElementById("wa").style.visibility="hidden";
+        }, 1000);
+        var score = document.getElementById("score").innerHTML;
+        var attempts=document.getElementById("attempts").innerHTML;
+        attempts=parseInt(attempts)+1;
+        document.getElementById("attempts").innerHTML=attempts;
+        if(attempts==3)
+        {
+            setTimeout(function () {
+               $('.content').toggle('show');
+            }, 750)              
+            score=parseInt(score) - 1;  
+            setTimeout(function(){
+              window.location.href='/game?score=' + score;
+            }  , 3000);
+        }
+        
+      }
+    }
+
+    function check_get(e,option,correct_pokemon) {
+      //console.log(option,correct_pokemon)
+      if(option==correct_pokemon)
+      {
+        document.getElementById("ca").style.visibility="visible";
+        document.getElementById("reload").style.visibility="visible";
+        var score = document.getElementById("score").innerHTML;
+        score=parseInt(score) + 1;
+        setTimeout(function(){
+          window.location.href='/game?score=' + score;
+        }  , 2500);
+        
+        /*score.score + =1;
+        score.attempts +=1;
+        window.sessionStorage.setItem("score",JSON.stringify(score));
+        update_score();*/ 
+      }
+      else
+      {
+       /* score.attempts +=1;
+        window.sessionStorage.setItem("score",JSON.stringify(score));
+        update_score();*/
+        document.getElementById("wa").style.visibility="visible";
+        setTimeout(function() {
+          $(e).hide(); 
+           document.getElementById("wa").style.visibility="hidden";
+        }, 1000);
+        var score = document.getElementById("score").innerHTML;
+        score=parseInt(score) - 1;
+      }
+    }
 
 </script>
 {% endblock scripts %}

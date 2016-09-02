@@ -11,9 +11,8 @@ pokemon_data = {"Bulbasaur":"http://img.pokemondb.net/artwork/bulbasaur.jpg","Iv
 
 def fbshare(request):
 	text=request.GET.get('text') or ''
-	
-	s='http://www.facebook.com/sharer/sharer.php?u='
-	for i in range(0,len(text)):
+	s='https://www.facebook.com/sharer/sharer.php?u='
+	for i in range(len(text)):
 		if text[i]==' ':
 			s+='%20'
 		elif text[i:i+7]=='http://':
@@ -24,23 +23,22 @@ def fbshare(request):
 			i+=8
 		else:
 			s+=text[i]
-	
+	print s
 	return redirect('%s'%(s))
 
 def gshare(request):
 	text=request.GET.get('text') or ''
 	s='https://plus.google.com/share?url='
-	for i in range(0,len(text)):
-		if text[i]==' ':
-			s+='%20'
-		elif text[i:i+7]=='http://':
-			s+='http%3A//'
-			i+=7
-		elif text[i:i+8]=='https://':
-			s+='https%3A//'
-			i+=8
-		else:
-			s+=text[i]
+	print text
+
+	if 'https://' in text:
+		a = text.split('https://')[1]
+		s += 'https%3A//' + a
+		# print a, "-----------"
+	elif 'http://' in text:
+		a = text.split('http://')[1]
+		s += 'http%3A//' + a
+		# print a, "============"
 	
 	print s
 	return redirect('%s'%(s))
@@ -48,13 +46,14 @@ def gshare(request):
 def linkedin(request):
 	text=request.GET.get('text') or ''
 	s='https://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=&source='
-	for i in range(0,len(text)):
+	i=0
+	while (i<len(text)):
 		if text[i]==' ':
 			s+='%20'
-		elif text[i:i+7]=='http://':
+		elif (i+7)<len(text) and text[i:i+7]=='http://':
 			s+='http%3A//'
 			i+=7
-		elif text[i:i+8]=='https://':
+		elif (i+8)<len(text) and text[i:i+8]=='https://':
 			s+='https%3A//'
 			i+=8
 		else:
@@ -79,6 +78,7 @@ def tweet(request):
 			s+=text[i]
 	
 	print s
+
 	return redirect('%s'%(s))
 
 def oddish(request):
@@ -201,7 +201,7 @@ def index(request):
 		page_id=1
 	if page_id > 150/n:
 		page_id=15
-	context_dict['range'] = range(max(0,page_id-2),min((page_id+3),16))
+	context_dict['range'] = range(max(1,page_id-2),min((page_id+3),16))
 	context_dict['page'] = page_id
 	context_dict['prev'] = page_id-1
 	context_dict['next'] = page_id+1
@@ -217,6 +217,7 @@ def index2(request,page_id):
 	data_arr=Pokedex.objects.all()
 	context_dict = {}
 	context_dict['date'] = today_date
+	game_image='http://images.hellokids.com/_uploads/_tiny_galerie/20090625/pikachu-source_ion.gif'
 	# try:
 	# 	page_id=int(page_id)
 	# except AssertionError:
@@ -229,6 +230,7 @@ def index2(request,page_id):
 	context_dict['page'] = page_id
 	context_dict['prev'] = page_id-1
 	context_dict['next'] = page_id+1
+	context_dict['game_image']=game_image
 	context_dict['pokedex'] = data_arr[(page_id-1)*n:(page_id)*n]
 	
 	return render(request,'search/index.html',context_dict)
@@ -265,6 +267,13 @@ def random(request):
 	return render(request, 'search/random.html', context_dict)
 
 def game(request):
+
+	if request.method == 'POST':
+		score=request.POST.get('user_score') or ''
+		return HttpResponse(score)
+
+	score=request.GET.get('score') or '0'
+	score=int(score)
 	pokemon_arr=Pokedex.objects.all()
 	random_pokemon=[pokemon_arr[randint(0,len(pokemon_arr)-1)] for i in range(3)]
 	correct_pokemon=pokemon_arr[randint(0,len(pokemon_arr)-1)]
@@ -273,17 +282,10 @@ def game(request):
 		if random_pokemon.count(random_pokemon[i])>1:
 			random_pokemon[i]=[pokemon_arr[randint(0,len(pokemon_arr)-1)]]
 	shuffle(random_pokemon)
-	# print random_pokemon
-	score=0
-	attempts=1
-	context_dict={}
-	for i in range(4):
-		a='poke'+str(i)
-		context_dict[a]=random_pokemon[i].pokemon_image.encode('utf-8')
-		
+	
+	context_dict={}	
 	context_dict['pokemon']=[i for i in random_pokemon]
 	context_dict['correct_pokemon']=correct_pokemon
 	context_dict['score']=score
-	context_dict['attempts']=attempts
-	# print context_dict['pokemon']
+	
 	return render(request,'search/game.html',context_dict)

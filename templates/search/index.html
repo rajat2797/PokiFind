@@ -15,11 +15,19 @@
 			height: 50px;
 			width: 400px;
 		}
+		.game{
+			display: inline-block;
+		}
+		.typing{
+			text-align: center;
+			display: inline-block;
+		}
 	</style>
 {% endblock head %}
 
 {% block navbar %}
-<a href="/game" data-toggle="tooltip" data-placement="bottom" title="PLAY GAME"><img src="{{game_image}}" class="game"><h1 class='typing'></h1></a>
+
+<a href="/game" data-toggle="tooltip" data-placement="bottom" title="PLAY GAME"><img src="{{game_image}}" class="game"><h1 class='typing' style="text-shadow:2px 2px yellow;margin: 20px ;margin-left: 90px; font-size:80px;">PLAY POKEMON GAME</h1></a>
 {% endblock %}
 
 {% block content %}
@@ -61,8 +69,7 @@
 <br>	
 <h1>Page #{{page}}</h1>
 {% for pokemon in pokedex %}
-	<p>{{pokemon.pokemon_name}} : 
-		type {{pokemon.pokemon_type}}</p>
+	<p>{{pokemon.pokemon_name}} : type {{pokemon.pokemon_type}}</p>
 		
 	<a href='/pokemon/{{pokemon.id}}/{{pokemon.pokemon_name}}'><img src='{{pokemon.pokemon_image}}'></a>
 	<hr>
@@ -125,12 +132,12 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-$(function(){
+/*$(function(){
 	      $(".typing").typed({
 	        strings: ["PLAY POKEMON GAME"],
 	        typeSpeed: 90
 	      });
-	  });
+	  });*/
 
 </script>
 
